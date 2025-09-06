@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terminal Portfolio</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm/css/xterm.css" />
+</head>
+<body>
+<!-- Desktop Taskbar -->
+<div class="desktop-taskbar">
+  <div class="taskbar-icons">
+    <div class="taskbar-icon" id="terminal-icon" title="Terminal">
+      <img src="https://img.icons8.com/fluent/600/linux-terminal.png" alt="Terminal" class="terminal-icon-img">
+    </div>
+  </div>
+  <!-- Clock Container -->
+  <div class="clock-container">
+    <div id="clock"></div>
+  </div>
+</div>
+
+<!-- Terminal Container -->
+<div class="terminal-container" id="terminal-container">
+  <div class="terminal-header" id="terminal-header">
+    <div class="buttons">
+      <span class="close" id="close-btn" title="Close"></span>
+      <span class="minimize" id="minimize-btn" title="Minimize"></span>
+      <span class="maximize" id="maximize-btn" title="Maximize"></span>
+    </div>
+    <div class="title">Saud's Terminal Portfolio</div>
+  </div>
+  <div id="terminal"></div>
+</div>
+
+<!-- Terminal Actions -->
+<div class="terminal-actions">
+  <div class="action-item" id="linkedin" title="LinkedIn Profile">
+    <img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn" class="icon">
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/xterm/lib/xterm.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/xterm-addon-fit/lib/xterm-addon-fit.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
