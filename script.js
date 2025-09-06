@@ -1456,8 +1456,26 @@ await typeLine(skullArt[i], 1);            }
             await typeLine("─".repeat(50));
             
             if (service === "tryhackme") {
-                await typeLine("Redirecting to TryHackMe profile...");
-                window.open('https://tryhackme.com/p/blackoutx8', '_blank');
+                await typeLine("Opening TryHackMe profile...");
+                const tryhackmeUrl = 'https://tryhackme.com/p/blackoutx8';
+                
+                // Handle mobile redirects
+                if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+                    await typeLine("Detected mobile device...");
+                    // Create clickable link for mobile
+                    await typeLine("Click here to open profile:");
+                    await typeLine(`\x1B]8;;${tryhackmeUrl}\x1B\\TryHackMe Profile\x1B]8;;\x1B\\`);
+                    
+                    // Fallback button
+                    const linkBtn = document.createElement('button');
+                    linkBtn.textContent = 'Open TryHackMe Profile';
+                    linkBtn.style.cssText = 'position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); padding: 10px 20px; background: #00bfff; color: white; border: none; border-radius: 5px; cursor: pointer; z-index: 9999;';
+                    linkBtn.onclick = () => window.open(tryhackmeUrl, '_blank');
+                    document.body.appendChild(linkBtn);
+                    setTimeout(() => linkBtn.remove(), 5000);
+                } else {
+                    window.open(tryhackmeUrl, '_blank');
+                }
                 await typeLine("Connection established successfully.");
             } else {
                 for(const line of sections[service]) {
