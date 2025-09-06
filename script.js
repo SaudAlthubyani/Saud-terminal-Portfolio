@@ -175,6 +175,12 @@
         // Initialize browser elements when DOM loads
         document.addEventListener('DOMContentLoaded', function() {
             createBrowserElements();
+            
+            // Add TryHackMe icon click handler
+            const thmIcon = document.getElementById('thm-icon');
+            thmIcon.addEventListener('click', () => {
+                window.open('https://tryhackme.com/p/blackoutx8', '_blank');
+            });
         });
 
         // Create browser window and icon
@@ -1457,24 +1463,39 @@ await typeLine(skullArt[i], 1);            }
             
             if (service === "tryhackme") {
                 await typeLine("Opening TryHackMe profile...");
-                const tryhackmeUrl = 'https://tryhackme.com/p/blackoutx8';
+                const thmUrl = 'https://tryhackme.com/p/blackoutx8';
                 
-                // Handle mobile redirects
+                // Check if mobile device
                 if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
-                    await typeLine("Detected mobile device...");
-                    // Create clickable link for mobile
-                    await typeLine("Click here to open profile:");
-                    await typeLine(`\x1B]8;;${tryhackmeUrl}\x1B\\TryHackMe Profile\x1B]8;;\x1B\\`);
+                    // Show mobile-friendly button
+                    const mobileBtn = document.createElement('button');
+                    mobileBtn.textContent = 'Open TryHackMe Profile';
+                    mobileBtn.style.cssText = `
+                        position: fixed;
+                        bottom: 80px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        padding: 12px 24px;
+                        background: #141d2b;
+                        color: #00ff00;
+                        border: 2px solid #00ff00;
+                        border-radius: 6px;
+                        font-size: 14px;
+                        font-family: monospace;
+                        cursor: pointer;
+                        z-index: 9999;
+                        box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+                    `;
+                    mobileBtn.onclick = () => window.open(thmUrl, '_blank');
+                    document.body.appendChild(mobileBtn);
                     
-                    // Fallback button
-                    const linkBtn = document.createElement('button');
-                    linkBtn.textContent = 'Open TryHackMe Profile';
-                    linkBtn.style.cssText = 'position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); padding: 10px 20px; background: #00bfff; color: white; border: none; border-radius: 5px; cursor: pointer; z-index: 9999;';
-                    linkBtn.onclick = () => window.open(tryhackmeUrl, '_blank');
-                    document.body.appendChild(linkBtn);
-                    setTimeout(() => linkBtn.remove(), 5000);
+                    // Remove button after 8 seconds
+                    setTimeout(() => mobileBtn.remove(), 8000);
+                    
+                    await typeLine("Tap the button below to open profile");
                 } else {
-                    window.open(tryhackmeUrl, '_blank');
+                    // Original laptop behavior
+                    window.open(thmUrl, '_blank');
                 }
                 await typeLine("Connection established successfully.");
             } else {
